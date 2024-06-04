@@ -24,7 +24,6 @@ import {
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import UseConnect from "./UseConnect";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 
 const MintComponent = () => {
   const [isMounted, setMount] = useState(false);
@@ -45,7 +44,7 @@ const MintComponent = () => {
     const { blockhash } = await connection.getLatestBlockhash();
     const tokenATA = await getAssociatedTokenAddress(
       mintKeypair.publicKey,
-      publicKey!,
+      publicKey!
     );
 
     const createMetadataInstruction = createCreateMetadataAccountV3Instruction(
@@ -56,7 +55,7 @@ const MintComponent = () => {
             PROGRAM_ID.toBuffer(),
             mintKeypair.publicKey.toBuffer(),
           ],
-          PROGRAM_ID,
+          PROGRAM_ID
         )[0],
         mint: mintKeypair.publicKey,
         mintAuthority: publicKey!,
@@ -77,7 +76,7 @@ const MintComponent = () => {
           isMutable: false,
           collectionDetails: null,
         },
-      },
+      }
     );
 
     const createNewTokenTransaction = new Transaction().add(
@@ -93,21 +92,21 @@ const MintComponent = () => {
         1,
         publicKey!,
         publicKey,
-        TOKEN_PROGRAM_ID,
+        TOKEN_PROGRAM_ID
       ),
       createAssociatedTokenAccountInstruction(
         publicKey!,
         tokenATA,
         publicKey!,
-        mintKeypair.publicKey,
+        mintKeypair.publicKey
       ),
       createMintToInstruction(
         mintKeypair.publicKey,
         tokenATA,
         publicKey!,
-        1 * Math.pow(10, 1),
+        1 * Math.pow(10, 1)
       ),
-      createMetadataInstruction,
+      createMetadataInstruction
     );
 
     // console.log(createNewTokenTransaction);
@@ -157,14 +156,13 @@ const MintComponent = () => {
 
   return (
     <div>
-      <Button
-        variant={"primary"}
+      <button
         onClick={async () => {
           await dt();
         }}
       >
         Click To Minting
-      </Button>
+      </button>
       {/* <h1>Mint Component</h1> */}
       <UseConnect />
     </div>
